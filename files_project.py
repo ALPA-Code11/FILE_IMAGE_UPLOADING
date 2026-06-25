@@ -24,7 +24,22 @@ async def upload_profile_pic(photo:UploadFile = File(...)):
 
     #  photo ka path
     target_path=os.path.join(UPLOAD_FOLDER,photo.filename)
-    
+
+    # to save then in your computer
+    with open(target_path,"wb") as buffer:
+        shutil.copyfileobj(photo.file,buffer)
+
+       #making link to see it in browser
+
+    display_url=f"http://127.0.0.1:8000/view-photo/{photo.filename}"
+
+    return{
+        "status":"Success! photo upload ho gayi",
+        "photo_name":photo.filename,
+        "clcik here to view":display_url
+    }   
+
+
 
 
 
